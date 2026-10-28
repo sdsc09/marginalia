@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marginalia</title>
+<meta name="theme-color" content="#b5573a">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1e6d6;--panel:#fbf5ea;--ink:#3b2a22;--mute:#84705f;--line:#dccbb3;--acc:#b5573a;--accink:#fbeede;--star:#d9a441;--sage:#7d8f69;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1f1815;--panel:#2a211d;--ink:#f0e3d1;--mute:#b19f8b;--line:#433730;--acc:#e08a68;--accink:#2a1a12;--star:#e8b552;--sage:#9db287}}
+:root[data-theme="dark"]{--bg:#1f1815;--panel:#2a211d;--ink:#f0e3d1;--mute:#b19f8b;--line:#433730;--acc:#e08a68;--accink:#2a1a12;--star:#e8b552;--sage:#9db287}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "DM Sans",system-ui,sans-serif;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .4 0 0 0 0 .3 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 90px}
+.hero{text-align:center;padding:8px 0 4px}
+.hero svg{width:150px;height:auto;color:var(--acc)}
+h1{font:italic 700 3rem/1 "Cormorant Garamond",Georgia,serif;margin:2px 0 4px;letter-spacing:.01em}
+.sub{color:var(--mute);margin:0 0 18px;font:italic 500 1.15rem "Cormorant Garamond",Georgia,serif}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 16px;border-radius:999px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.pri{background:var(--acc);color:var(--accink);border-color:var(--acc);font-weight:600}
+.tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bar{display:flex;gap:8px;margin-bottom:6px}
+input,select,textarea{font:inherit;width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink)}
+#q{border-radius:999px}
+.count{color:var(--mute);font-size:.85rem;margin:6px 4px 14px;font-style:italic}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:24px 16px}
+.bk{background:none;border:0;padding:0;text-align:left;color:inherit;border-radius:0}
+.cv{position:relative;aspect-ratio:2/3;border-radius:50% 50% 8px 8px/33% 33% 8px 8px;padding:0 12px 16px;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;box-shadow:0 6px 14px rgba(59,42,34,.28);transition:transform .18s}
+.cv::after{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.4);border-radius:inherit;pointer-events:none}
+.cv b{font:700 1.08rem/1.1 "Cormorant Garamond",Georgia,serif}
+.cv i{font-size:.68rem;font-style:normal;opacity:.85;margin-top:5px;letter-spacing:.06em;text-transform:uppercase}
+.bk:hover .cv{transform:translateY(-4px) rotate(-1deg)}
+.meta{margin-top:8px;font-size:.78rem;color:var(--mute);display:flex;flex-direction:column;gap:1px;line-height:1.3}
+.au{color:var(--ink)}
+.st{display:inline-block;font-size:1.05em;letter-spacing:1px;line-height:1;background:linear-gradient(90deg,var(--star) var(--p,0%),var(--line) var(--p,0%));-webkit-background-clip:text;background-clip:text;color:transparent}
+.st.big{font-size:2.1rem;cursor:pointer}
+.empty{padding:40px 10px;text-align:center;color:var(--mute);font:italic 1.2rem "Cormorant Garamond",Georgia,serif}
+dialog{border:1px solid var(--line);border-radius:22px;background:var(--panel);color:var(--ink);width:min(470px,calc(100% - 24px));padding:22px}
+dialog::backdrop{background:rgba(30,20,15,.55)}
+dialog h2{font:italic 700 1.9rem/1.1 "Cormorant Garamond",Georgia,serif;margin:0}
+label{display:block;font-size:.82rem;color:var(--mute);margin:12px 0 4px;letter-spacing:.03em}
+.row{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.stats{display:grid;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.nums b{display:block;font:700 2.3rem/1 "Cormorant Garamond",Georgia,serif;color:var(--acc)}
+.nums span{font-size:.8rem;color:var(--mute)}
+.dist{display:flex;align-items:flex-end;gap:5px;height:110px;margin:10px 0 20px}
+.dist div{flex:1;background:var(--sage);border-radius:40% 40% 2px 2px;min-height:3px;position:relative}
+.dist div span{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--mute);padding-top:2px}
+.rv{font:italic 500 1.15rem/1.4 "Cormorant Garamond",Georgia,serif;margin:6px 0 0;color:var(--mute)}
+h3{font:italic 700 1.5rem "Cormorant Garamond",Georgia,serif;margin:28px 0 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <svg viewBox="0 0 160 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M30 66a50 50 0 0 1 100 0"/><path d="M48 66a32 32 0 0 1 64 0"/><circle cx="80" cy="40" r="9" fill="var(--star)" stroke="none"/><path d="M80 22v-8M62 28l-5-6M98 28l5-6M54 44l-8-2M106 44l8-2"/><path d="M6 64c10-6 14-16 12-26M18 38c-6 0-9 4-9 8M18 38c4-2 8-1 10 3M14 52c-5-1-8 2-9 6M154 64c-10-6-14-16-12-26M142 38c6 0 9 4 9 8M142 38c-4-2-8-1-10 3"/></svg>
+    <h1>Marginalia</h1>
+    <p class="sub">un diario de libros para almas curiosas</p>
+  </header>
+  <div class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-t="explore">Explorar</button>
+    <button role="tab" data-t="read">Mi diario</button>
+    <button role="tab" data-t="want">Quiero leer</button>
+    <button role="tab" data-t="stats">Estadísticas</button>
+  </div>
+  <div id="bar" class="bar">
+    <input id="q" type="search" placeholder="Buscá por título, autor o género" aria-label="Buscar">
+    <select id="sort" aria-label="Ordenar" style="width:auto">
+      <option value="title">Título A–Z</option>
+      <option value="date">Más recientes</option>
+      <option value="rating">Mejor puntuados</option>
+      <option value="year">Año de publicación</option>
+    </select>
+  </div>
+  <div id="view"></div>
+  <p style="text-align:center;margin-top:30px"><button class="pri" id="add">Agregar un libro que no está</button></p>
+</div>
+
+<dialog id="dlg">
+  <div id="head"><h2 id="dtitle"></h2><div id="dsub" style="color:var(--mute);font-style:italic"></div></div>
+  <div id="cust"><label for="f-title">Título</label><input id="f-title"><label for="f-author">Autor</label><input id="f-author"></div>
+  <label for="f-status">En mi diario</label>
+  <select id="f-status"><option value="none">No lo tengo en mi diario</option><option value="want">Quiero leerlo</option><option value="read">Ya lo leí</option></select>
+  <div id="rated">
+    <label>Tu puntuación (tocá una estrella, o la mitad)</label>
+    <span class="st big" id="f-stars" role="slider" aria-label="Puntuación" aria-valuemin="0" aria-valuemax="5" tabindex="0">★★★★★</span>
+    <label for="f-date">Fecha de lectura</label><input id="f-date" type="date">
+    <label for="f-review">Reseña</label><textarea id="f-review" rows="4" placeholder="¿Qué te dejó este libro?"></textarea>
+  </div>
+  <label for="f-cover">Portada propia (opcional)</label>
+  <input id="f-cover" type="file" accept="image/*">
+  <div style="margin-top:6px;font-size:.85rem;color:var(--mute)"><span id="cv-note"></span> <button id="cv-del" type="button" style="padding:2px 10px;font-size:.8rem">Quitar</button></div>
+  <div class="row"><button class="pri" id="save">Guardar</button><button id="cancel">Cancelar</button></div>
+</dialog>
+
+<script>
+(function(){
+var CAT=`Cien años de soledad|Gabriel García Márquez|1967|Novela
+El amor en los tiempos del cólera|Gabriel García Márquez|1985|Novela
+Crónica de una muerte anunciada|Gabriel García Márquez|1981|Novela
+Rayuela|Julio Cortázar|1963|Novela
+Bestiario|Julio Cortázar|1951|Cuento
+El Aleph|Jorge Luis Borges|1949|Cuento
+Ficciones|Jorge Luis Borges|1944|Cuento
+Pedro Páramo|Juan Rulfo|1955|Novela
+El llano en llamas|Juan Rulfo|1953|Cuento
+La casa de los espíritus|Isabel Allende|1982|Novela
+Los detectives salvajes|Roberto Bolaño|1998|Novela
+2666|Roberto Bolaño|2004|Novela
+Distancia de rescate|Samanta Schweblin|2014|Novela
+La ciudad y los perros|Mario Vargas Llosa|1963|Novela
+El túnel|Ernesto Sabato|1948|Novela
+Aura|Carlos Fuentes|1962|Novela
+Como agua para chocolate|Laura Esquivel|1989|Novela
+Las batallas en el desierto|José Emilio Pacheco|1981|Novela
+Veinte poemas de amor y una canción desesperada|Pablo Neruda|1924|Poesía
+Árbol de Diana|Alejandra Pizarnik|1962|Poesía
+La sombra del viento|Carlos Ruiz Zafón|2001|Novela
+Don Quijote de la Mancha|Miguel de Cervantes|1605|Novela
+Orgullo y prejuicio|Jane Austen|1813|Novela
+Jane Eyre|Charlotte Brontë|1847|Novela
+Cumbres borrascosas|Emily Brontë|1847|Novela
+Mujercitas|Louisa May Alcott|1868|Novela
+Frankenstein|Mary Shelley|1818|Novela
+Una habitación propia|Virginia Woolf|1929|Ensayo
+La señora Dalloway|Virginia Woolf|1925|Novela
+Crimen y castigo|Fiódor Dostoievski|1866|Novela
+Anna Karénina|León Tolstói|1877|Novela
+El principito|Antoine de Saint-Exupéry|1943|Fábula
+1984|George Orwell|1949|Distopía
+Un mundo feliz|Aldous Huxley|1932|Distopía
+Fahrenheit 451|Ray Bradbury|1953|Distopía
+El hobbit|J. R. R. Tolkien|1937|Fantasía
+El señor de los anillos|J. R. R. Tolkien|1954|Fantasía
+Harry Potter y la piedra filosofal|J. K. Rowling|1997|Fantasía
+Dune|Frank Herbert|1965|Ciencia ficción
+Ensayo sobre la ceguera|José Saramago|1995|Novela
+La insoportable levedad del ser|Milan Kundera|1984|Novela
+Gente normal|Sally Rooney|2018|Novela
+El gran Gatsby|F. Scott Fitzgerald|1925|Novela
+Matar a un ruiseñor|Harper Lee|1960|Novela
+Mujeres que corren con los lobos|Clarissa Pinkola Estés|1992|Ensayo`.split('\n').map(function(l,i){var p=l.split('|');return{id:'c'+i,title:p[0],author:p[1],year:+p[2],genre:p[3]}});
+var PAL=[['#b5573a','#fbeede'],['#7d8f69','#1f2a1a'],['#d9a441','#33210d'],['#c98b8b','#3b1d1d'],['#5e3a52','#f6e3ee'],['#2f5d5a','#e3f1ef'],['#a06a4f','#fbeede'],['#8a8f4a','#1f2210']];
+var KEY='marginalia:v2',S={d:{},custom:[],tab:'explore',cur:null,rating:0,cover:''};
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function hash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
+function all(){return CAT.concat(S.custom)}
+function get(id){return all().filter(function(b){return b.id===id})[0]}
+function load(){try{var r=JSON.parse(localStorage.getItem(KEY));if(r){S.d=r.d||{};S.custom=r.custom||[];return}}catch(e){}
+S.d={c0:{status:'read',rating:5,date:'2026-09-14',review:'Macondo se queda a vivir en uno.'},c3:{status:'read',rating:4.5,date:'2026-08-02',review:'Se puede leer en cualquier orden y siempre sorprende.'},c5:{status:'read',rating:5,date:'2026-06-20',review:''},c7:{status:'read',rating:4,date:'2026-05-11',review:'Corto, seco e inolvidable.'},c10:{status:'want'},c12:{status:'want'}}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify({d:S.d,custom:S.custom}))}catch(e){}}
+function stars(v){return '<span class="st" style="--p:'+(v/5*100)+'%" role="img" aria-label="'+v+' de 5">★★★★★</span>'}
+function cover(b,e){var p=PAL[hash(b.title)%PAL.length],c=e&&e.cover,
+st=c?'background:#3b2a22 url('+c+') center/cover':'background:radial-gradient(circle at 50% 34%,rgba(255,255,255,.24) 0 19%,transparent 20%),'+p[0]+';color:'+p[1];
+return '<div class="cv" style="'+st+'">'+(c?'':'<b>'+esc(b.title)+'</b><i>'+esc(b.author)+'</i>')+'</div>'}
+function tile(b){var e=S.d[b.id],m='';
+if(e)m=e.status==='read'?(e.rating?stars(e.rating):'Leído'):'Quiero leer';
+return '<button class="bk" data-id="'+b.id+'" aria-label="'+esc(b.title)+'">'+cover(b,e)+'<div class="meta"><span class="au">'+esc(b.author)+'</span>'+(b.year?'<span>'+b.year+'</span>':'')+(m?'<span>'+m+'</span>':'')+'</div></button>'}
+function list(){var q=$('q').value.toLowerCase().trim(),so=$('sort').value,t=S.tab;
+var l=all().filter(function(b){var e=S.d[b.id];
+if(t!=='explore'&&!(e&&e.status===t))return false;
+return (b.title+' '+b.author+' '+(b.genre||'')).toLowerCase().indexOf(q)>-1});
+l.sort(function(x,y){var ex=S.d[x.id]||{},ey=S.d[y.id]||{},r=0;
+if(so==='rating')r=(ey.rating||0)-(ex.rating||0);else if(so==='date')r=(ey.date||'').localeCompare(ex.date||'');else if(so==='year')r=(y.year||0)-(x.year||0);
+return r||x.title.localeCompare(y.title)});
+if(!l.length)return '<div class="empty">'+(q?'Ese libro no aparece todavía. Podés agregarlo vos abajo.':(t==='read'?'Tu diario espera su primera lectura. Explorá y marcá lo que ya leíste.':'Tu lista está vacía. Explorá y guardá lo que querés leer.'))+'</div>';
+var out='<div class="count">'+l.length+(l.length===1?' libro':' libros')+'</div><div class="grid">'+l.map(tile).join('')+'</div>';
+if(t==='read'){var rv=l.filter(function(b){return S.d[b.id].review}).slice(0,3);
+if(rv.length)out+='<h3>Tus reseñas</h3><div class="stats">'+rv.map(function(b){var e=S.d[b.id];return '<div class="card"><b>'+esc(b.title)+'</b> '+stars(e.rating||0)+'<p class="rv">“'+esc(e.review)+'”</p></div>'}).join('')+'</div>'}
+return out}
+function statsView(){var r=all().filter(function(b){var e=S.d[b.id];return e&&e.status==='read'});
+if(!r.length)return '<div class="empty">Cuando registres lecturas, acá vas a ver tu mapa lector.</div>';
+var rated=r.filter(function(b){return S.d[b.id].rating>0}),avg=rated.length?rated.reduce(function(s,b){return s+S.d[b.id].rating},0)/rated.length:0;
+var yr=String(new Date().getFullYear()),ty=r.filter(function(b){return (S.d[b.id].date||'').indexOf(yr)===0}).length;
+var bins=[0,0,0,0,0,0,0,0,0,0];rated.forEach(function(b){bins[Math.round(S.d[b.id].rating*2)-1]++});
+var mx=Math.max.apply(null,bins.concat([1])),ac={};r.forEach(function(b){ac[b.author]=(ac[b.author]||0)+1});
+var top=Object.keys(ac).sort(function(x,y){return ac[y]-ac[x]})[0];
+return '<div class="stats"><div class="card nums"><div><b>'+r.length+'</b><span>libros leídos</span></div><div><b>'+ty+'</b><span>en '+yr+'</span></div><div><b>'+(avg?avg.toFixed(1):'–')+'</b><span>promedio</span></div></div><div class="card"><b>Cómo puntuás</b><div class="dist">'+bins.map(function(n,i){return '<div style="height:'+(n/mx*100)+'%" title="'+n+' libros"><span>'+((i+1)/2)+'</span></div>'}).join('')+'</div></div><div class="card">Tu autor más leído: <b>'+esc(top)+'</b> ('+ac[top]+')</div></div>'}
+function render(){
+Array.prototype.forEach.call($('tabs').children,function(b){b.setAttribute('aria-selected',b.dataset.t===S.tab)});
+$('bar').style.display=S.tab==='stats'?'none':'flex';
+$('view').innerHTML=S.tab==='stats'?statsView():list()}
+function setRating(v){S.rating=v;$('f-stars').style.setProperty('--p',(v/5*100)+'%');$('f-stars').setAttribute('aria-valuenow',v)}
+function toggleRated(){$('rated').style.display=$('f-status').value==='read'?'block':'none'}
+function openDlg(id){var b=id?get(id):null,e=id?(S.d[id]||{}):{};S.cur=id;
+var isNew=!id,isCustom=isNew||/^u/.test(id);
+$('head').style.display=isNew?'none':'block';$('cust').style.display=isCustom?'block':'none';
+if(b){$('dtitle').textContent=b.title;$('dsub').textContent=b.author+(b.year?', '+b.year:'')+(b.genre?' · '+b.genre:'')}
+$('f-title').value=b?b.title:'';$('f-author').value=b?b.author:'';$('f-title').style.borderColor='';
+$('f-status').value=e.status||(isNew?'read':(S.tab==='want'?'want':'read'));
+$('f-date').value=e.date||new Date().toISOString().slice(0,10);
+$('f-review').value=e.review||'';setRating(e.rating||0);
+S.cover=e.cover||'';$('cv-note').textContent=S.cover?'Portada cargada':'';$('f-cover').value='';
+toggleRated();$('dlg').showModal()}
+$('f-stars').addEventListener('click',function(e){var r=this.getBoundingClientRect(),v=Math.min(5,Math.max(.5,Math.ceil((e.clientX-r.left)/r.width*10)/2));setRating(v===S.rating?0:v)});
+$('f-stars').addEventListener('keydown',function(e){if(e.key==='ArrowRight')setRating(Math.min(5,S.rating+.5));if(e.key==='ArrowLeft')setRating(Math.max(0,S.rating-.5))});
+$('f-status').addEventListener('change',toggleRated);
+$('f-cover').addEventListener('change',function(){var f=this.files[0];if(!f)return;var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var w=240,h=Math.round(im.height/im.width*w),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);S.cover=c.toDataURL('image/jpeg',.8);$('cv-note').textContent='Portada cargada'};im.src=fr.result};fr.readAsDataURL(f)});
+$('cv-del').onclick=function(){S.cover='';$('f-cover').value='';$('cv-note').textContent=''};
+$('add').onclick=function(){openDlg(null)};
+$('cancel').onclick=function(){$('dlg').close()};
+$('save').onclick=function(){var id=S.cur,st=$('f-status').value;
+if(!id||/^u/.test(id)){var t=$('f-title').value.trim();if(!t){$('f-title').focus();$('f-title').style.borderColor='#c4302b';return}
+var a=$('f-author').value.trim()||'Autor desconocido';
+if(!id){id='u'+Date.now().toString(36);S.custom.push({id:id,title:t,author:a,year:0,genre:'Agregado por mí'})}
+else S.custom=S.custom.map(function(b){return b.id===id?Object.assign({},b,{title:t,author:a}):b})}
+if(st==='none'){delete S.d[id];S.custom=S.custom.filter(function(b){return b.id!==id||/^c/.test(id)})}
+else{var rd=st==='read';S.d[id]={status:st,rating:rd?S.rating:0,date:rd?$('f-date').value:'',review:rd?$('f-review').value.trim():'',cover:S.cover||''}}
+persist();$('dlg').close();if(st!=='none'&&S.tab!=='explore')S.tab=st;render()};
+$('tabs').onclick=function(e){var t=e.target.dataset&&e.target.dataset.t;if(t){S.tab=t;$('sort').value=t==='explore'?'title':'date';render()}};
+$('view').onclick=function(e){var b=e.target.closest('.bk');if(b)openDlg(b.dataset.id)};
+$('q').oninput=render;$('sort').onchange=render;
+load();render();
+})();
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}
+</script>
+</body>
+</html>
